@@ -1,2 +1,5 @@
-# SeCuNetworkToolBox
-This Repository contains my attempts to extract something on Brain Network :)
+# Self Customized Network ToolBox!
+
+Here will be filled by some descriptions and imaginations about the repository.
+
+(Repository name is perfect)
