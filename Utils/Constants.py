@@ -48,7 +48,12 @@ class LocalDataConstants():
             'Feedback': 'All',
             'Action': 'Action',
             'All': 'All'
+        },
 
+        'NetworkNames':{
+
+            'ZeroAxis': ['PF', 'MFC', 'MPC', 'MP'],
+            'Frontal': ['PF', 'LF', 'RF', 'MFC']
 
         }
     }
