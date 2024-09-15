@@ -79,3 +79,13 @@ def HandleDataLoad(Dir, version_number = None):
         ConDataDict = pickle.load(f)
 
     return ConDataDict
+
+def TimeToSample(TimeWin, specs = {'ZeroPoint': 25, 'Fs': 250}):
+
+    ZP = specs['ZeroPoint']
+    Fs = specs['Fs']
+
+    SP = int(TimeWin[0] * (Fs / 1000) + ZP)
+    FP = int(TimeWin[1] * (Fs / 1000) + ZP)
+
+    return SP, FP
