@@ -4,6 +4,7 @@ import time
 
 import Utils.GraphMeasures as GrM
 from Utils.Constants import FigConstants
+import Utils.Local as Local
     
 class NetworkGraph:
 
@@ -35,7 +36,7 @@ class NetworkGraph:
 
         self.labels = labels
 
-    def DrawStaticGraph(self, VisThresh: int, win_number = 0, ax = None, show_labels = False, xlims = [-1, 1], ylims = [-1, 1]):
+    def DrawStaticGraph(self, VisThresh: int, window = 0, ax = None, show_labels = False, xlims = [-1, 1], ylims = [-1, 1], DirectionBias = 0.5):
 
         # ISSUES: 
         # - isn't better way to plot DIRECTED graphs? (:|)
@@ -51,13 +52,29 @@ class NetworkGraph:
         x = self.coords[:, 0]
         y = self.coords[:, 1]
 
+        assert type(window) in [int, list, np.ndarray], "Invalid Window Type"
+
+        if type(window) == int:
+
+            PlotMatW8s = self.weights[:, :, window]
+
+        else:
+
+            window = np.array(window)
+
+            assert window.ndim == 1 and len(window) == 2, "Invalid Window Shape"
+
+            STP, FTP = Local.TimeToSample(window)
+
+            PlotMatW8s = np.mean(self.weights[:, :, STP : FTP], axis = 2)
+
         if not self.Directed:
 
             for i in range(len(x)):
 
                 for j in range(i + 1, len(x)):
 
-                    color_num = self.weights[i, j, win_number]
+                    color_num = PlotMatW8s[i, j]
 
                     if color_num < 0:
 
@@ -79,7 +96,7 @@ class NetworkGraph:
 
                     if i != j:
 
-                        color_num = self.weights[i, j, win_number]
+                        color_num = PlotMatW8s[i, j]
 
                         if color_num < 0:
 
@@ -91,7 +108,7 @@ class NetworkGraph:
 
                         if color_num > VisThresh:
 
-                            bias = 0.5 * FigConstants.StaticGraph['ArrowHeadWidth']
+                            bias = DirectionBias * FigConstants.StaticGraph['ArrowHeadWidth']
 
                             if x[j] == x[i]:
 
