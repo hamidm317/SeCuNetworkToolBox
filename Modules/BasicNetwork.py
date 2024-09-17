@@ -161,3 +161,39 @@ class NetworkGraph:
             time.sleep(delay)
             fig.canvas.flush_events()
             ax.clear()
+
+    def StaticNodeDegree(self, window = 0):
+
+        if type(window) == int:
+
+            WeMat = self.weights[:, :, window]
+
+        else:
+
+            STP, FTP = Local.TimeToSample(window)
+
+            WeMat = np.mean(self.weights[:, :, STP : FTP], axis = -1)
+
+        if self.Directed:
+
+            Degrees = np.array([np.sum(WeMat, axis = 0), np.sum(WeMat, axis = 1)])
+
+        else:
+
+            Degrees = np.sum(WeMat, axis = 0)
+
+        return Degrees
+    
+    def DynamicNodeDegree(self):
+
+        WeMat = self.weights
+
+        if self.Directed:
+
+            DynDegree = np.array([np.sum(WeMat, axis = 0), np.sum(WeMat, axis = 1)])
+
+        else:
+
+            DynDegree = np.sum(WeMat, axis = 0)
+
+        return np.array(DynDegree)
