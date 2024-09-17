@@ -50,3 +50,62 @@ def AestDim(Q, thr = 3):
     else:
         
         return AestDim(Q + 1)
+    
+def MovMean(A, k):
+
+    win_length = k
+    MAFA = []
+    
+    if len(A) < k:
+
+        print("I don't know how to calculate this, The window must be less than length. So the length forced to be len(A)")
+
+        win_length = len(A)
+
+    new_elements_len = len(A) - win_length + 1
+
+    for element in range(new_elements_len):
+
+        MAFA.append(np.mean(A[element : (element + 1) + k ]))
+
+    return np.array(MAFA)
+
+def RandomBlockSampling(Length: int, NumBlock: int, NumSample_inBlock: int):
+
+    Block_Len = int(Length / NumBlock)
+
+    # assert NumSample_inBlock <= Block_Len, 'Number of Samples in Blocks must be less than length of Block'
+
+    if  NumSample_inBlock >= Block_Len:
+
+        NumSample_inBlock = Block_Len
+
+    SampleMat = []
+
+    for Block in range(NumBlock - 1):
+
+        SampleMat.append(np.random.permutation(Block_Len)[:NumSample_inBlock] + Block * Block_Len)
+
+    SampleMat.append(Length - 1 - np.random.permutation(Block_Len)[:NumSample_inBlock])
+
+    return np.array(SampleMat)
+
+def DeterminedBlockSampling(Length: int, NumBlock: int, NumSample_inBlock: int):
+
+    Block_Len = int(Length / NumBlock)
+
+    # assert NumSample_inBlock <= Block_Len, 'Number of Samples in Blocks must be less than length of Block'
+
+    if  NumSample_inBlock >= Block_Len:
+
+        NumSample_inBlock = Block_Len
+
+    SampleMat = []
+
+    for Block in range(NumBlock - 1):
+
+        SampleMat.append(np.int32(np.arange(NumSample_inBlock)) + Block * Block_Len)
+
+    SampleMat.append(Length - 1 - np.int32(np.arange(NumSample_inBlock)))
+
+    return np.array(SampleMat)
