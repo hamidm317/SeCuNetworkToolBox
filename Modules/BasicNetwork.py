@@ -147,7 +147,7 @@ class NetworkGraph:
         ax.set_xlim(xlims)
         ax.set_ylim(ylims)
 
-    def DrawDynamicGraph(self, delay: int, VisThresh = 0.5, xlims = [-1.2, 1.2], ylims = [-1.2, 1.2], show_labels = False):
+    def DrawDynamicGraph(self, delay: int, VisThresh = 0.5, xlims = [-1.2, 1.2], ylims = [-1.2, 1.2], show_labels = False, DirectionBias = 0):
 
         plt.ion()
         
@@ -157,7 +157,7 @@ class NetworkGraph:
 
             fig.canvas.draw()
             ax.set_title("Window time: " + str(np.floor(self.t_[i] * 100) / 100))
-            self.DrawStaticGraph(VisThresh = VisThresh, win_number = i, ax = ax, xlims = xlims, ylims = ylims, show_labels = show_labels)
+            self.DrawStaticGraph(VisThresh = VisThresh, window = i, ax = ax, xlims = xlims, ylims = ylims, show_labels = show_labels, DirectionBias = DirectionBias)
             time.sleep(delay)
             fig.canvas.flush_events()
             ax.clear()
