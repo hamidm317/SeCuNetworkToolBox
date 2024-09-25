@@ -92,4 +92,23 @@ class LocalDataConstants():
             'Fs': 500
         },
 
+        'NodeLocations':{
+
+            'ZeroAxis': [[np.cos(2 * np.pi / 4 + np.pi / 3), np.sin(2 * np.pi / 4 + np.pi / 3)], [np.cos(np.pi / 4 + np.pi / 3), np.sin(np.pi / 4 + np.pi / 3)], [np.cos(0 + np.pi / 3), np.sin(0 + np.pi / 3)], [np.cos(-1 * np.pi / 4 + np.pi / 3), np.sin(-1 * np.pi / 4 + np.pi / 3)]],
+            'Frontal': [[0, 1], [-1, 0], [1, 0], [0, -1]]
+
+        },
+
+        'xAxisLimits':{
+
+            'ZeroAxis': [-1.2, 1.2],
+            'Frontal': [-1.2, 1.2]
+        },
+
+        'yAxisLimits':{
+
+            'ZeroAxis': [0.2, 1],
+            'Frontal': [-1.2, 1.2]
+        }
+
     }
